@@ -599,6 +599,7 @@ def get_evaluation_history(db: Session = Depends(get_db)):
 
 # --- Dashboard Metrics ---
 @router.get("/dashboard", response_model=DashboardMetricsResponse)
+@router.get("/dashboard/metrics", response_model=DashboardMetricsResponse)
 def get_dashboard_metrics(db: Session = Depends(get_db)):
     total_datasets = db.query(Dataset).count()
     total_tables = sum(d.table_count for d in db.query(Dataset).all())
