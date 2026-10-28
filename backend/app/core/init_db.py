@@ -8,13 +8,17 @@ from backend.app.connectors.sqlite_connector import SQLiteConnector
 from backend.app.metadata.manager import MetadataManager
 from backend.app.scanner.scanner_engine import scanner_engine
 
+SAMPLE_DATA_DIR = Path(__file__).resolve().parent.parent.parent.parent / "sample_data"
+if not SAMPLE_DATA_DIR.exists():
+    SAMPLE_DATA_DIR = Path("sample_data")
+
 def seed_demo_data():
     """Populates initial sample datasets and metadata register for immediate demo usability."""
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     try:
         # 1. Load purpose & retention metadata register
-        meta_file = Path("sample_data/purpose_retention.csv")
+        meta_file = SAMPLE_DATA_DIR / "purpose_retention.csv"
         if meta_file.exists():
             with open(meta_file, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -25,7 +29,7 @@ def seed_demo_data():
         existing_datasets = db.query(Dataset).count()
         if existing_datasets == 0:
             # Seed CSV 1: synthetic_customers.csv
-            cust_src = Path("sample_data/synthetic_customers.csv")
+            cust_src = SAMPLE_DATA_DIR / "synthetic_customers.csv"
             if cust_src.exists():
                 dest_csv = UPLOADS_DIR / "demo_synthetic_customers.csv"
                 shutil.copyfile(cust_src, dest_csv)
@@ -42,7 +46,7 @@ def seed_demo_data():
                 db.add(d1)
 
             # Seed CSV 2: synthetic_employees.csv
-            emp_src = Path("sample_data/synthetic_employees.csv")
+            emp_src = SAMPLE_DATA_DIR / "synthetic_employees.csv"
             if emp_src.exists():
                 dest_emp = UPLOADS_DIR / "demo_synthetic_employees.csv"
                 shutil.copyfile(emp_src, dest_emp)
@@ -59,7 +63,7 @@ def seed_demo_data():
                 db.add(d2)
 
             # Seed SQLite: sample_enterprise.db
-            db_src = Path("sample_data/sample_enterprise.db")
+            db_src = SAMPLE_DATA_DIR / "sample_enterprise.db"
             if db_src.exists():
                 dest_db = UPLOADS_DIR / "demo_sample_enterprise.db"
                 shutil.copyfile(db_src, dest_db)
