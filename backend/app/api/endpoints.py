@@ -705,6 +705,7 @@ def update_rules_configuration(payload: dict):
 
 # --- Reports Export ---
 @router.get("/reports/inventory.csv")
+@router.get("/reports/inventory/csv")
 def download_inventory_csv(db: Session = Depends(get_db)):
     csv_str = ReportGenerator.generate_inventory_csv(db)
     return Response(
@@ -714,6 +715,7 @@ def download_inventory_csv(db: Session = Depends(get_db)):
     )
 
 @router.get("/reports/gaps.csv")
+@router.get("/reports/gaps/csv")
 def download_gaps_csv(db: Session = Depends(get_db)):
     csv_str = ReportGenerator.generate_gaps_csv(db)
     return Response(
@@ -723,6 +725,8 @@ def download_gaps_csv(db: Session = Depends(get_db)):
     )
 
 @router.get("/reports/inventory.pdf")
+@router.get("/reports/inventory/pdf")
+@router.get("/reports/pdf")
 def download_inventory_pdf(db: Session = Depends(get_db)):
     pdf_bytes = ReportGenerator.generate_inventory_pdf(db)
     return Response(
