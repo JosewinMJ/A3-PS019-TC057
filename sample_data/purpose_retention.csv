@@ -1,0 +1,14 @@
+dataset_name,table_name,column_name,data_class,declared_purpose,retention_period,metadata_owner,last_reviewed_date,notes
+synthetic_customers.csv,synthetic_customers.csv,full_name,person_name,Customer onboarding and KYC identification,7 years post-account closure,Compliance Team,2024-01-10,Required for legal customer verification
+synthetic_customers.csv,synthetic_customers.csv,email_address,email_address,Transactional notifications and security alerts,7 years post-account closure,Infosec & IT,2024-01-10,Primary communication channel
+synthetic_customers.csv,synthetic_customers.csv,mobile_number,phone_number,Multi-factor authentication (MFA) and urgent service alerts,7 years post-account closure,Infosec & IT,2024-01-10,SMS OTP gateway integration
+synthetic_customers.csv,synthetic_customers.csv,aadhaar_number,government_id,,Statutory KYC guidelines,Legal & Compliance,2024-01-10,Missing purpose test case - statutory retention declared
+synthetic_customers.csv,synthetic_customers.csv,date_of_birth,date_of_birth,Age eligibility verification for restricted financial products,,Product Ops,2024-01-10,Missing retention test case - declared purpose only
+synthetic_employees.csv,synthetic_employees.csv,employee_name,person_name,Human resources personnel record and payroll,Duration of employment + 7 years,HR Operations,2024-02-01,Internal HR record
+synthetic_employees.csv,synthetic_employees.csv,work_email,email_address,Corporate directory and workplace communication,Duration of employment + 90 days,IT Admin,2024-02-01,Deprovisioned post exit
+synthetic_employees.csv,synthetic_employees.csv,pan_number,government_id,Statutory income tax (TDS) reporting and form 16,8 financial years,Payroll & Tax,2024-02-01,Mandated under Income Tax Act
+sample_enterprise.db,customers,full_name,person_name,Customer CRM record and identity,5 years,CRM Operations,2024-01-15,Database customer mapping
+sample_enterprise.db,customers,email,email_address,Order tracking and marketing consent,3 years or until consent withdrawal,Marketing Lead,2024-01-15,Subject to opt-out
+sample_enterprise.db,customers,phone,phone_number,Delivery coordination and carrier dispatch,2 years post-fulfillment,Logistics Ops,2024-01-15,Passed to delivery partners
+sample_enterprise.db,employees,employee_name,person_name,Employee directory and payroll,7 years,HR Ops,2024-01-15,Active employee record
+sample_enterprise.db,employees,pan,government_id,Tax reporting and statutory audit compliance,8 years,Finance Dept,2024-01-15,Statutory tax reporting

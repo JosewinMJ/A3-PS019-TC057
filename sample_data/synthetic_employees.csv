@@ -1,0 +1,11 @@
+emp_id,employee_name,work_email,contact_no,pan_number,dob,department,salary_band,hire_date
+EMP-101,Vikram Malhotra,v.malhotra@corp.internal,+91 91234 56789,ABCDE1234F,1988-08-30,Engineering,L5,2020-04-01
+EMP-102,Ananya Sen,ananya.sen@corp.internal,9823456781,BZRPK9821L,1993-02-14,Compliance,L4,2021-06-15
+EMP-103,Rajesh Khanna,r.khanna@corp.internal,+91 97345 67892,CLQPM4567K,1982-11-05,Finance,L6,2018-01-10
+EMP-104,Meera Iyer,meera.iyer@corp.internal,9645678903,DFRPN8901M,1991-05-22,Human Resources,L4,2022-03-20
+EMP-105,Arjun Pillai,a.pillai@corp.internal,+91 95567 89014,EKTPQ2345N,1986-12-18,Product,L5,2019-09-01
+EMP-106,Ishita Gupta,ishita.g@corp.internal,9467890125,FLUPR6789P,1997-09-09,Marketing,L3,2023-01-16
+EMP-107,Devendra Rao,d.rao@corp.internal,+91 93789 01236,GMVPS0123Q,1984-04-12,Information Security,L6,2017-11-25
+EMP-108,Kavita Nambiar,k.nambiar@corp.internal,9289012347,HNWPT4567R,1990-07-27,Operations,L4,2021-10-04
+EMP-109,Siddharth Das,s.das@corp.internal,+91 91901 23458,IPXPU8901S,1994-01-03,Data Analytics,L4,2022-08-11
+EMP-110,Pooja Bansal,pooja.b@corp.internal,9001234569,JQYPV2345T,1989-10-15,Legal,L5,2020-02-18

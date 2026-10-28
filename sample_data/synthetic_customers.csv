@@ -1,0 +1,11 @@
+customer_id,full_name,email_address,mobile_number,aadhaar_number,date_of_birth,account_balance,created_at
+CUST-001,Aarav Sharma,aarav.sharma@example.in,+91 98201 12345,4512 8734 9102,1992-04-15,45200.50,2023-01-10 09:30:00
+CUST-002,Priya Patel,priya.patel@example.com,9876543210,2341 5678 9012,1985-11-23,128900.00,2023-02-14 11:20:00
+CUST-003,Rohan Verma,rohan.verma@example.org,+91 97654 32109,8765 4321 0987,1998-07-08,5400.75,2023-03-22 14:15:00
+CUST-004,Sneha Kulkarni,sneha.k@example.net,9123456780,6543 2109 8765,1995-12-30,32000.00,2023-04-05 16:45:00
+CUST-005,Vikram Singh,vikram.singh@example.co.in,+91 94567 89012,3456 7890 1234,1980-03-19,89500.25,2023-05-18 10:10:00
+CUST-006,Ananya Roy,ananya.roy@example.com,9988776655,5678 9012 3456,2001-09-14,14500.00,2023-06-25 13:00:00
+CUST-007,Kabir Mehta,kabir.mehta@example.in,+91 93214 56789,9012 3456 7890,1990-06-02,67800.50,2023-07-30 17:20:00
+CUST-008,Deepika Joshi,deepika.j@example.org,9712345678,7890 1234 5678,1987-01-25,112000.00,2023-08-12 08:50:00
+CUST-009,Aditya Nair,aditya.nair@example.net,+91 95678 90123,2109 8765 4321,1994-10-11,23400.80,2023-09-04 15:35:00
+CUST-010,Tanvi Deshmukh,tanvi.d@example.com,9654321098,4321 0987 6543,1996-05-17,49000.00,2023-10-19 12:40:00
