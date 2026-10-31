@@ -33,6 +33,40 @@ router = APIRouter()
 def now_utc():
     return datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
+def resolve_dataset_file_path(dataset: Dataset, db: Session) -> Path:
+    """Safely resolves dataset file path with self-healing fallback for relocated directories."""
+    file_p = Path(dataset.file_path)
+    if file_p.exists():
+        return file_p
+
+    cand1 = UPLOADS_DIR / file_p.name
+    if cand1.exists():
+        dataset.file_path = str(cand1)
+        db.commit()
+        return cand1
+
+    sample_dir = settings.BASE_DIR.parent / "sample_data"
+    cand2 = sample_dir / file_p.name
+    if cand2.exists():
+        dataset.file_path = str(cand2)
+        db.commit()
+        return cand2
+
+    cand3 = UPLOADS_DIR / dataset.name
+    if cand3.exists():
+        dataset.file_path = str(cand3)
+        db.commit()
+        return cand3
+
+    cand4 = sample_dir / dataset.name
+    if cand4.exists():
+        dataset.file_path = str(cand4)
+        db.commit()
+        return cand4
+
+    raise HTTPException(status_code=404, detail=f"Dataset file missing from storage: {file_p.name}")
+
+
 
 # --- Health Check ---
 @router.get("/health")
@@ -156,9 +190,7 @@ def get_dataset_tables(dataset_id: str, db: Session = Depends(get_db)):
     if not dataset:
         raise HTTPException(status_code=404, detail="Dataset not found")
 
-    file_path = Path(dataset.file_path)
-    if not file_path.exists():
-        raise HTTPException(status_code=404, detail="Underlying dataset file missing from storage")
+    file_path = resolve_dataset_file_path(dataset, db)
 
     if dataset.source_type == "csv":
         connector = CSVConnector(file_path)
@@ -190,9 +222,7 @@ def trigger_scan(req: ScanCreateRequest, db: Session = Depends(get_db)):
     if not dataset:
         raise HTTPException(status_code=404, detail="Dataset not found")
 
-    file_path = Path(dataset.file_path)
-    if not file_path.exists():
-        raise HTTPException(status_code=404, detail="Dataset file missing from storage")
+    file_path = resolve_dataset_file_path(dataset, db)
 
     scan_id = str(uuid.uuid4())
     scan_job = ScanJob(
@@ -471,6 +501,8 @@ def create_metadata_record(req: MetadataRecordCreate, db: Session = Depends(get_
     return record
 
 @router.post("/metadata/import")
+@router.post("/metadata/import-csv")
+@router.post("/metadata/import/csv")
 async def import_metadata_csv(
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
@@ -692,6 +724,7 @@ def get_rules_configuration():
     }
 
 @router.post("/rules")
+@router.put("/rules")
 def update_rules_configuration(payload: dict):
     yaml_content = payload.get("yaml_content")
     if not yaml_content:

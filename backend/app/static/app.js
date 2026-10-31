@@ -439,6 +439,17 @@ async function renderScan(container) {
   const res = await fetch('/api/datasets');
   const datasets = await res.json();
 
+  if (!datasets || datasets.length === 0) {
+    container.innerHTML = `
+      <div class="card" style="max-width:700px; margin:0 auto; text-align:center; padding:36px;">
+        <h3 style="font-size:16px; font-weight:800; margin-bottom:8px;">No Datasets Available</h3>
+        <p style="font-size:12px; color:#64748b; margin-bottom:20px;">Please upload a CSV or connect a SQLite database in Data Sources before executing a scan.</p>
+        <button onclick="navigateTo('datasources')" class="btn btn-primary">Go to Data Sources &rarr;</button>
+      </div>
+    `;
+    return;
+  }
+
   container.innerHTML = `
     <div class="card" style="max-width:700px; margin:0 auto;">
       <h3 style="font-size:16px; font-weight:800; margin-bottom:6px;">Execute Personal-Data Discovery Scan</h3>
@@ -465,10 +476,22 @@ async function renderScan(container) {
 }
 
 async function executeScanJob() {
-  const dsId = document.getElementById('scan-select-ds').value;
-  const btn = document.getElementById('btn-run-scan');
+  const dsSelect = document.getElementById('scan-select-ds');
   const feedback = document.getElementById('scan-feedback-box');
+  const btn = document.getElementById('btn-run-scan');
 
+  if (!dsSelect || !dsSelect.value) {
+    if (feedback) {
+      feedback.innerHTML = `
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:12px; padding:16px; color:#991b1b;">
+          <strong>Scan Error:</strong> Please select a dataset to scan.
+        </div>
+      `;
+    }
+    return;
+  }
+
+  const dsId = dsSelect.value;
   btn.disabled = true;
   btn.innerHTML = `Running Multi-Signal Scanner...`;
   feedback.innerHTML = `<div style="padding:12px; font-size:12px; color:#0284c7;">Scanning columns, computing signals, and generating technical evidence...</div>`;
@@ -484,6 +507,7 @@ async function executeScanJob() {
       throw new Error(err.detail || 'Scan failed');
     }
     const result = await res.json();
+    state.selectedScanDatasetId = null;
     feedback.innerHTML = `
       <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:12px; padding:16px; color:#065f46;">
         <h4 style="font-size:14px; font-weight:800; margin-bottom:4px;">Scan Completed Successfully!</h4>
