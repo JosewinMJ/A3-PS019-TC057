@@ -16,8 +16,8 @@ export type MetadataStatus =
 export type ReviewStatus = 'PENDING' | 'CONFIRMED' | 'REJECTED';
 
 export interface Dataset {
-  id: str;
-  name: str;
+  id: string;
+  name: string;
   source_type: 'csv' | 'sqlite';
   file_path: string;
   row_count: number;

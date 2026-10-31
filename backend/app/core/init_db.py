@@ -25,9 +25,17 @@ def seed_demo_data():
             MetadataManager.import_from_csv(db, content)
             print("Imported initial purpose & retention metadata register.")
 
-        # 2. Check if datasets already seeded
-        existing_datasets = db.query(Dataset).count()
-        if existing_datasets == 0:
+        # 2. Check and heal file paths for relocated workspaces
+        existing_datasets = db.query(Dataset).all()
+        for d in existing_datasets:
+            if not Path(d.file_path).exists():
+                candidate_path = UPLOADS_DIR / Path(d.file_path).name
+                if candidate_path.exists():
+                    d.file_path = str(candidate_path)
+        db.commit()
+
+        # 3. Check if datasets already seeded
+        if len(existing_datasets) == 0:
             # Seed CSV 1: synthetic_customers.csv
             cust_src = SAMPLE_DATA_DIR / "synthetic_customers.csv"
             if cust_src.exists():
