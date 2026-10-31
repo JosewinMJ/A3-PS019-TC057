@@ -1,5 +1,5 @@
 WEBSITE FUNCTIONALITY YOUTUBE VIDEO - https://youtu.be/MVfuXm52Rkw
-WEBSITE LINK- https://as-ps019-tc057.onrender.com/
+WEBSITE LINK-https://as-ps019-tc057.onrender.com/
 PRESENTATION VIDEO- https://youtu.be/BWVyN9AuqBE
 
 # PrivacyLens — Personal-Data Discovery & Privacy Evidence Inventory
